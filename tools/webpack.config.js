@@ -130,9 +130,10 @@ if(!isDebug){
 // HMR
 if(isDebug && useHMR){
     babelConfig.plugins.unshift('react-hot-loader/babel');
+    // Add 'webpack-hot-middleware/client' into the entry array. This connects to the server to receive notifications when the bundle rebuilds and then updates your client bundle accordingly.
     config.entry.unshift('react-hot-loader/patch', 'webpack-hot-middleware/client');
-    config.plugins.push(new webpack.HotModuleReplacementPlugin());
-    config.plugins.push(new webpack.NoEmitOnErrorsPlugin()); // 跳过编译时出错的代码并记录，使编译后运行时的包不会发生错误。
+    config.plugins.push(new webpack.HotModuleReplacementPlugin()); // Enables Hot Module Replacement
+    // config.plugins.push(new webpack.NoEmitOnErrorsPlugin()); // 跳过编译时出错的代码并记录，使编译后运行时的包不会发生错误。
 }
 
 export default config;
