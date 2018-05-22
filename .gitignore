@@ -1,0 +1,7 @@
+public/dist
+public/index.html
+public/sitemap.xml
+
+node_modules
+npm-debug.log
+

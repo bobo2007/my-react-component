@@ -1,7 +1,7 @@
-import path from 'path';
-import webpack from 'webpack';
-import WebpackAssetsManifest from 'webpack-assets-manifest';
-import pkg from '../package.json';
+const path = require('path');
+const webpack = require('webpack');
+const WebpackAssetsManifest = require('webpack-assets-manifest');
+const pkg = require('../package.json');
 
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release');
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v');
@@ -136,5 +136,5 @@ if(isDebug && useHMR){
     // config.plugins.push(new webpack.NoEmitOnErrorsPlugin()); // 跳过编译时出错的代码并记录，使编译后运行时的包不会发生错误。
 }
 
-export default config;
+module.exports = config;
 
