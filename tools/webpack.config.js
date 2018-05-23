@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const AssetsPlugin = require('webpack-assets-manifest');
+const AssetsPlugin = require('assets-webpack-plugin');
 const pkg = require('../package.json');
 
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release');

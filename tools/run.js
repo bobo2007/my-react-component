@@ -18,7 +18,7 @@ module.exports = task('run', () => new Promise((resolve) => {
         publicPath: webpackConfig.output.publicPath,
         stats: webpackConfig.stats
     });
-    compiler.plugin('done', (stats) => {
+    compiler.hooks.done.tap('done', (stats) => {
         const bundle = stats.compilation.chunks.find(x=>x.name==='main').files[0];
         const template = fs.readFileSync('./public/index.ejs', 'utf8');
         const render = ejs.compile(template, {filename: './public/index.ejs'});
