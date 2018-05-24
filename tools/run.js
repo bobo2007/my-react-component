@@ -34,7 +34,8 @@ module.exports = task('run', () => new Promise((resolve) => {
                     baseDir: 'public',
                     middleware: [
                         webpackDevMiddleware,
-                        require('webpack-hot-middleware')(compiler)
+                        require('webpack-hot-middleware')(compiler),
+                        require('connect-history-api-fallback')
                     ]
                 }
             }, resolve);
