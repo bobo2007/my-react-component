@@ -47,7 +47,7 @@ function resolve(routes, context){
                     });
                     return fetch(url, {method}).then(resp => resp.json);
                 })
-            ])
+            ]).then()
         }
         return route.load().then(Page => <Page route={{...route, params}} error={context.error}/>);
     }
