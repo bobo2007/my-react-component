@@ -16,12 +16,26 @@ function decodeParam(val){
 }
 
 function matchURI(route, path){
-    
+    const match = route.pattern.exec(path);
+    if(!match){
+        return null;
+    }
+     const params = Object.create(null);
+     for(let i=1; i < match.length; i += 1){
+         params[route.keys[i-1].name] = match[i] !== undefined ? decodeParam(match[i]) : undefined;
+     }
+     return params;
 }
 
 function resolve(routes, context){
     for(const route of routes){
         const params = matchURI(route, context.error ? '/error' : context.pathname);
-        
+        if(!params){
+            continue;
+        }
+        if(route.data){
+
+        }
+        return route.load().then(Page => <Page route={{...route, params}} error={context.error}/>);
     }
 }
