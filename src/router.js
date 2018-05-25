@@ -34,8 +34,26 @@ function resolve(routes, context){
             continue;
         }
         if(route.data){
-
+            // 加载数据
+            const keys = Object.keys(route.data);
+            return Promise.all([
+                route.load(),
+                ...keys.map((key) => {
+                    const query = route.data[key];
+                    const method = query.substring(0, query.indexof(' '));
+                    let url = query.substr(query.indexof(' ') + 1);
+                    Object.keys(params).forEach((k) => {
+                        url = url.replace(`${k}`, params[k]);
+                    });
+                    return fetch(url, {method}).then(resp => resp.json);
+                })
+            ])
         }
         return route.load().then(Page => <Page route={{...route, params}} error={context.error}/>);
     }
+    const error = new Error('Page not found');
+    error.status = 404;
+    return Promise.reject(error);
 }
+
+export default resolve;
